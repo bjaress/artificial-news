@@ -1,5 +1,15 @@
-[ ] language template
-[ ] nihongo template
+[i] scrape wikipedia using HTML, not wiki markup
+  - too many random, quirky templates
+  [i] separate branch
+  [ ] convert one simple integration test, temporarily disable others
+    [ ] use beautiful soup to grab section
+    [ ] html-sanitizer
+    [ ] beautiful soup again to get text of paragraphs
+    [ ] remove square-bracketed citations as well as parenthesized expressions
+  [ ] convert other integrations tests
+    - TBD
+  [ ] merge branch in
+[ ] use studio voices
 [ ] podcast on spotify
     [ ] spotify settings
     [ ] spreaker settings
