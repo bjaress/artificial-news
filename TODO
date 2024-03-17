@@ -1,7 +1,10 @@
 [i] scrape wikipedia using HTML, not wiki markup
   - too many random, quirky templates
-  [i] separate branch
-  [ ] convert one simple integration test, temporarily disable others
+  [x] separate branch
+    html-based-scraping
+  [i] convert one simple integration test, temporarily disable others
+    [i] convert test
+      [ ] find api call
     [ ] use beautiful soup to grab section
     [ ] html-sanitizer
     [ ] beautiful soup again to get text of paragraphs
