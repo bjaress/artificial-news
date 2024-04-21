@@ -2,9 +2,31 @@
   - too many random, quirky templates
   [x] separate branch
     html-based-scraping
+  [i] set up Behave
+    [x] replace Dockerfile.tests
+      [x] /features
+    [x] requirements-integration.txt
+    [i] environment.py
+      https://behave.readthedocs.io/en/stable/tutorial.html#environmental-controls
+      [ ] url lookups
+      [ ] poll wiremock ready
   [i] convert one simple integration test, temporarily disable others
     [i] convert integration test
-      [ ] find api call
+      [x] find api call
+        section list
+          curl 'https://en.wikipedia.org/w/api.php?action=parse&format=json&page=Frog&prop=sections&disabletoc=1'
+             | jq '.parse.sections|map({index, linkAnchor})'
+        section HTML
+          curl 'https://en.wikipedia.org/w/api.php?action=parse&page=Frog&prop=text&format=json&section=0'
+             | jq '.parse.text["*"]'
+      [x] figure out processing
+        exclude
+          table .reference, .references, .shortdescription, .note
+        extract text from
+          p, blockquote, ol, ul, dl
+            entire contents of tag are indivisible chunk
+            can have paragraphs within chunk for e.g. list items
+            filter out empties
       [ ] choose test to convert
       [ ] comment out others
       [ ] update relevant mocking

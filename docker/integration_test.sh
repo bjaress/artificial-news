@@ -15,5 +15,5 @@ down() {
 trap "down" SIGHUP SIGINT SIGQUIT SIGABRT SIGTERM
 
 down
-up
+up || exit 1
 down

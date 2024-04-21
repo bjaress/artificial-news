@@ -21,7 +21,7 @@ $(test_log) : docker/docker-compose.yml docker/Dockerfile.tests \
 		$(features) $(docker_hash)
 	docker/integration_test.sh > $@.partial
 	mv $@.partial $@
-	grep app-test.*scenarios -A 1 < $@|tail -n 2
+	grep app-test.*scenarios* -A 1 < $@|tail -n 2
 
 
 
