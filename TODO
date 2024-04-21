@@ -2,14 +2,14 @@
   - too many random, quirky templates
   [x] separate branch
     html-based-scraping
-  [i] set up Behave
+  [x] set up Behave
     [x] replace Dockerfile.tests
       [x] /features
     [x] requirements-integration.txt
-    [i] environment.py
+    [x] environment.py
       https://behave.readthedocs.io/en/stable/tutorial.html#environmental-controls
-      [ ] url lookups
-      [ ] poll wiremock ready
+      [x] url lookups
+      [x] poll wiremock ready
   [i] convert one simple integration test, temporarily disable others
     [i] convert integration test
       [x] find api call

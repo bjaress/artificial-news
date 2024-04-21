@@ -19,9 +19,8 @@ clean :
 
 $(test_log) : docker/docker-compose.yml docker/Dockerfile.tests \
 		$(features) $(docker_hash)
-	docker/integration_test.sh > $@.partial
-	mv $@.partial $@
-	grep app-test.*scenarios* -A 1 < $@|tail -n 2
+	docker/integration_test.sh $@
+	echo '\n\n' ; grep 'app-test.*[0-9]\+ failed, [0-9]\+ skipped' $@|sed 's/^[^ ]*//'
 
 
 

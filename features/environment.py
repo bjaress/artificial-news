@@ -11,7 +11,7 @@ def before_all(context):
     for key, value in os.environ.items():
         if key.startswith("prop."):
             include_in(prop, key.split(".")[1:], value)
-        if key.endswith(".url"):
+        if key.endswith(".url") and not key.endswith("app.url"):
             mocks.append(value)
     context.prop = prop
     context.mocks = mocks
@@ -30,10 +30,7 @@ def include_in(namespace, key_path, value):
         include_in(as_dict[first], key_path[1:], value)
 
 def before_scenario(context, scenario):
-    mocks = [ context.prop.wikipedia.url
-            , context.prop.spreaker.url
-            , context.prop.google.url ]
-    for mock in mocks:
+    for mock in context.mocks:
         poll(f"confirming/resetting {mock}",
              200,
              lambda: requests.post(f"{mock}/__admin/reset", timeout=0.01).status_code)
@@ -42,14 +39,18 @@ def poll(description, expected, action):
     exception = Exception(f"Exhausted attempts at {description}")
     result = None
     for attempt in range(300):
-        print(f"Attempt {attempt} at {description}.", flush=True)
         try:
             result = action()
             if result == expected:
                 return result
-            print(result)
+            message = result
         except Exception as e:
             exception = e
-            print(exception)
-        time.sleep(1)
+            message = exception
+        # Behave cleverly intercepts logging and then shows it if, and
+        # only if, there is a test failure.  We're using print() here to
+        # bypass that and give actual progress updates.
+        print(f"Attempt {attempt} at {description} failed with {message}.", flush=True)
+        # exponential backoff, capped at around seven minutes.
+        time.sleep(0.01 * (2**min(12, attempt)))
     raise(exception)

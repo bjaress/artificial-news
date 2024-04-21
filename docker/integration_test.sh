@@ -1,5 +1,7 @@
 #! /bin/bash
 
+outfile="$1"
+
 up() {
   podman-compose -f docker/docker-compose.yml up \
     --build \
@@ -12,8 +14,13 @@ down() {
   podman-compose -f docker/docker-compose.yml down --remove-orphans
 }
 
-trap "down" SIGHUP SIGINT SIGQUIT SIGABRT SIGTERM
+save_logs() {
+  podman-compose -f docker/docker-compose.yml logs --names > "$outfile"
+  down
+}
+
+trap "save_logs" SIGHUP SIGINT SIGQUIT SIGABRT SIGTERM
 
 down
 up || exit 1
-down
+save_logs
