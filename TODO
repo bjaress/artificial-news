@@ -13,19 +13,19 @@
   [i] convert happy path integration test from cucumber to behave
       - convert from cucumber to behave as is
       [x] confirm all mocks up
-      [ ] mock news item
+      [i] mock news item
         - helpers that populate context
         - helper that syncs mock to context
-        [ ] headline with links
-          [ ] mock wikipedia headline
-          [ ] expected spreaker episode title (unabridged)
-        [ ] linked articles
-          [ ] expected wikipedia request
-          [ ] mock wikipedia response
-          [ ] expected tts request fragment
+        [x] headline with links
+          [x] mock wikipedia headline
+          [x] expected spreaker episode title (unabridged)
+        [i] linked articles
+          [i] expected wikipedia request info
+          [i] mock wikipedia response info
+          [i] expected tts request fragment
         [ ] tts
-          [ ] mock tts response (hash of title)
-          [ ] store mock in contect
+          [ ] mock tts response topic
+          [ ] store mock in context
       [ ] trigger call to app
       [ ] expect calls to wikipedia
         [ ] headlines
@@ -36,6 +36,10 @@
         [ ] abridged version of title from context
         [ ] mock mp3 data from context
         [ ] show, other metadata
+  [ ] convert other integration tests from cucumber to behave
+  [ ] uploading to spreaker without publishing
+  [ ] merge branch in
+  [ ] test
   [i] convert app to use html
     [x] find api call
       section list
@@ -58,7 +62,6 @@
       [ ] beautiful soup again to get text of paragraphs (and others)
         p blockquote ul ol dl
       [ ] remove square-bracketed citations as well as parenthesized expressions
-  [ ] convert other integration tests from cucumber to behave
   [ ] merge branch in
 [ ] use studio voices
 [ ] podcast on spotify
