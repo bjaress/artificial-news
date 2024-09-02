@@ -63,13 +63,19 @@
         p blockquote ul ol dl
       [ ] remove square-bracketed citations as well as parenthesized expressions
   [ ] merge branch in
+[ ] schedule release after run/upload
+  [ ] release next 5am Eastern after run
+  [ ] run noon HST
 [ ] use studio voices
 [ ] podcast on spotify
     [ ] spotify settings
     [ ] spreaker settings
-[ ] consider sections when ordering articles
+[ ] consider sections when ordering articles within story
 [ ] de-dupe articles
     [ ] by full reference (title and section)
+[ ] weighted random selection of story
+  - rank by age (oldest is heaviest)
+  - number of articles in story (more articles are heavier)
 [ ] iTunes
 [ ] upgrade/remove libraries (Pydantic?)
 [ ] upload in preview mode
