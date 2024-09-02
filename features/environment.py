@@ -15,9 +15,12 @@ def before_all(context):
             mocks.append(value)
     context.prop = prop
     context.mocks = mocks
-    poll(f"confirming app is up",
-         200,
-         lambda: requests.get(f"{context.prop.app.url}/health").status_code)
+    poll(
+        f"confirming app is up",
+        200,
+        lambda: requests.get(f"{context.prop.app.url}/health").status_code,
+    )
+
 
 def include_in(namespace, key_path, value):
     as_dict = namespace.__dict__
@@ -29,11 +32,15 @@ def include_in(namespace, key_path, value):
             as_dict[first] = SimpleNamespace()
         include_in(as_dict[first], key_path[1:], value)
 
+
 def before_scenario(context, scenario):
     for mock in context.mocks:
-        poll(f"confirming/resetting {mock}",
-             200,
-             lambda: requests.post(f"{mock}/__admin/reset", timeout=0.01).status_code)
+        poll(
+            f"confirming/resetting {mock}",
+            200,
+            lambda: requests.post(f"{mock}/__admin/reset", timeout=0.01).status_code,
+        )
+
 
 def poll(description, expected, action):
     exception = Exception(f"Exhausted attempts at {description}")
@@ -52,5 +59,5 @@ def poll(description, expected, action):
         # bypass that and give actual progress updates.
         print(f"Attempt {attempt} at {description} failed with {message}.", flush=True)
         # exponential backoff, capped at around seven minutes.
-        time.sleep(0.01 * (2**min(12, attempt)))
-    raise(exception)
+        time.sleep(0.01 * (2 ** min(12, attempt)))
+    raise (exception)

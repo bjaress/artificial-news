@@ -38,34 +38,35 @@
         [ ] show, other metadata
   [ ] convert other integration tests from cucumber to behave
   [ ] uploading to spreaker without publishing
-  [ ] merge branch in
-  [ ] test
-  [i] convert app to use html
-    [x] find api call
-      section list
-        curl 'https://en.wikipedia.org/w/api.php?action=parse&format=json&page=Frog&prop=sections&disabletoc=1'
-           | jq '.parse.sections|map({index, linkAnchor})'
-      section HTML
-        curl 'https://en.wikipedia.org/w/api.php?action=parse&page=Frog&prop=text&format=json&section=0'
-           | jq '.parse.text["*"]'
-    [x] figure out processing
-      exclude
-        table .reference, .references, .shortdescription, .note
-      extract text from
-        p, blockquote, ol, ul, dl
-          entire contents of tag are indivisible chunk
-          can have paragraphs within chunk for e.g. list items
-          filter out empties
-    [ ] update unit tests
-      [ ] use beautiful soup to grab section
-      [ ] html-sanitizer
-      [ ] beautiful soup again to get text of paragraphs (and others)
-        p blockquote ul ol dl
-      [ ] remove square-bracketed citations as well as parenthesized expressions
+  [ ] manual test
   [ ] merge branch in
 [ ] schedule release after run/upload
+  - target time replaces upload-without-publishing flag
   [ ] release next 5am Eastern after run
   [ ] run noon HST
+[i] convert app to use html
+  [x] find api call
+    section list
+      curl 'https://en.wikipedia.org/w/api.php?action=parse&format=json&page=Frog&prop=sections&disabletoc=1'
+         | jq '.parse.sections|map({index, linkAnchor})'
+    section HTML
+      curl 'https://en.wikipedia.org/w/api.php?action=parse&page=Frog&prop=text&format=json&section=0'
+         | jq '.parse.text["*"]'
+  [x] figure out processing
+    exclude
+      table .reference, .references, .shortdescription, .note
+    extract text from
+      p, blockquote, ol, ul, dl
+        entire contents of tag are indivisible chunk
+        can have paragraphs within chunk for e.g. list items
+        filter out empties
+  [ ] update unit tests
+    [ ] use beautiful soup to grab section
+    [ ] html-sanitizer
+    [ ] beautiful soup again to get text of paragraphs (and others)
+      p blockquote ul ol dl
+    [ ] remove square-bracketed citations as well as parenthesized expressions
+  [ ] merge branch in
 [ ] use studio voices
 [ ] podcast on spotify
     [ ] spotify settings
