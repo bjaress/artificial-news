@@ -19,13 +19,14 @@
         [x] headline with links
           [x] mock wikipedia headline
           [x] expected spreaker episode title (unabridged)
-        [i] linked articles
-          [i] expected wikipedia request info
-          [i] mock wikipedia response info
-          [i] expected tts request fragment
+        [x] linked articles
+          [x] expected wikipedia request info
+          [x] mock wikipedia response info
+          [x] expected tts request fragment
         [ ] tts
-          [ ] mock tts response topic
-          [ ] store mock in context
+          [ ] mock tts response topic (existing episode)
+            [ ] store mock in context
+          [ ] sync to wiremock
       [ ] trigger call to app
       [ ] expect calls to wikipedia
         [ ] headlines
@@ -36,12 +37,12 @@
         [ ] abridged version of title from context
         [ ] mock mp3 data from context
         [ ] show, other metadata
+    [ ] expect success from app
   [ ] convert other integration tests from cucumber to behave
-  [ ] uploading to spreaker without publishing
   [ ] manual test
   [ ] merge branch in
 [ ] schedule release after run/upload
-  - target time replaces upload-without-publishing flag
+  [ ] include unreleased when checking existing episodes
   [ ] release next 5am Eastern after run
   [ ] run noon HST
 [i] convert app to use html
