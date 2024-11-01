@@ -23,10 +23,13 @@
           [x] expected wikipedia request info
           [x] mock wikipedia response info
           [x] expected tts request fragment
-        [ ] tts
-          [ ] mock tts response topic (existing episode)
-            [ ] store mock in context
-          [ ] sync to wiremock
+        [x] spreaker
+          [x] mock spreaker response (no existing episodes)
+            [x] store mock in context
+          [x] sync to wiremock
+        [ ] google
+          [ ] mock google tts response
+            [ ] dummy mp3 data
       [ ] trigger call to app
       [ ] expect calls to wikipedia
         [ ] headlines
@@ -38,6 +41,7 @@
         [ ] mock mp3 data from context
         [ ] show, other metadata
     [ ] expect success from app
+  [ ] convert cleanup tests from cucumber to behave
   [ ] convert other integration tests from cucumber to behave
   [ ] manual test
   [ ] merge branch in

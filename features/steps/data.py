@@ -4,6 +4,7 @@ import requests
 import time
 import random
 
+SHOW_ID = 1234
 
 @bhv.given("there is a simple news item about frogs")
 def news_frogs(context):
@@ -21,6 +22,30 @@ def news_frogs(context):
 def sync(context):
     sync_headlines(context)
     sync_articles(context)
+    sync_existing_episodes(context)
+
+def sync_existing_episodes(context):
+    items = [ { 'title': title
+              , 'published_at': '2000-01-01 00:00:00'
+              , 'episode_id': id
+              } for id, title in enumerate(episodes(context))]
+    data = {
+        'request': {
+            'urlPath': f"/v2/shows/{SHOW_ID}/episodes",
+        },
+        'response': {
+            'status': 200,
+            'jsonBody': {
+                'response': {
+                    'items': items
+                },
+            },
+        },
+    }
+    response = requests.post(
+        f"{context.prop.spreaker.url}/__admin/mappings", json=data
+    )
+    response.raise_for_status()
 
 def sync_articles(context):
     for news_item in context.topics.values():
@@ -74,6 +99,11 @@ def topics(context):
     if not hasattr(context, "topics"):
         context.topics = {}
     return context.topics
+
+def episodes(context):
+    if not hasattr(context, "episodes"):
+        context.episodes = []
+    return context.episodes
 
 
 class NewsItem:
