@@ -5,6 +5,7 @@ import time
 import random
 
 SHOW_ID = 1234
+BASE_64_MP3 = "Zm9v"
 
 @bhv.given("there is a simple news item about frogs")
 def news_frogs(context):
@@ -105,6 +106,22 @@ def episodes(context):
         context.episodes = []
     return context.episodes
 
+def mp3(context):
+    data = {
+        "request": {
+            "urlPath": "/v1/text:synthesize"
+        },
+        "response": {
+            "status": 200,
+            "jsonBody": {
+                "audioContent": BASE_64_MP3
+            },
+        },
+    }
+    response = requests.post(
+        f"{context.prop.google.url}/__admin/mappings", json=data
+    )
+    response.raise_for_status()
 
 class NewsItem:
     def __init__(self, headline_html, headline_plain, **articles):

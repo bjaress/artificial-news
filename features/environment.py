@@ -4,6 +4,7 @@ import requests
 
 from types import SimpleNamespace
 
+from steps.data import mp3 as mock_mp3
 
 def before_all(context):
     prop = SimpleNamespace()
@@ -40,6 +41,7 @@ def before_scenario(context, scenario):
             200,
             lambda: requests.post(f"{mock}/__admin/reset", timeout=0.01).status_code,
         )
+    mock_mp3(context)
 
 
 def poll(description, expected, action):
