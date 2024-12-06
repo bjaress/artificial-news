@@ -13,7 +13,7 @@
   [i] convert happy path integration test from cucumber to behave
       - convert from cucumber to behave as is
       [x] confirm all mocks up
-      [i] mock news item
+      [x] mock news item
         - helpers that populate context
         - helper that syncs mock to context
         [x] headline with links
@@ -30,9 +30,11 @@
         [x] google
           [x] mock google tts response
             [x] dummy mp3 data
-      [ ] trigger call to app
-      [ ] expect calls to wikipedia
-        [ ] headlines
+      [x] trigger call to app
+        [x] create payload
+        [x] send
+      [i] expect calls to wikipedia
+        [i] headlines
         [ ] articles in context
       [ ] expect calls to tts
         [ ] combination of title and article fragments from context

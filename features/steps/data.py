@@ -7,17 +7,49 @@ import random
 SHOW_ID = 1234
 BASE_64_MP3 = "Zm9v"
 
-@bhv.given("there is a simple news item about frogs")
-def news_frogs(context):
-    topics(context)["frogs"] = NewsItem(
-        headline_html="""<a href='/wiki/Frog'>Something</a> happened.""",
-        headline_plain="""Something happened.""",
-        Frog=Article(
-            markup="""A frog is a type of animal.""",
-            plain="""A frog is a type of animal.""",
-        ),
+
+@bhv.when("it is time to generate news")
+def trigger_app(context):
+    response = requests.post(context.prop.app.url, json= {
+      "message": {
+        "attributes": {
+          "spreaker_url": context.prop.spreaker.url,
+          "spreaker_token": "DUMMY_TOKEN",
+          "spreaker_show_id": SHOW_ID,
+          "spreaker_title_limit": context.prop.spreaker.title_limit,
+          "spreaker_age_limit": 30,
+          "tts_api_key": "DUMMY_KEY",
+          "tts_server": context.prop.google.url,
+          "tts_length_limit": 300,
+          "tts_intro": "INTRO",
+          "tts_outro": "OUTRO",
+          "wikipedia_url": context.prop.wikipedia.url,
+          "wikipedia_headlines_page": "Template:In_the_news"
+        },
+        "messageId": "blahblah"
+      },
+      "subscription": "blah/blah/blah"
+    })
+    response.raise_for_status()
+
+@bhv.then("headlines are retrieved from Wikipedia")
+def headline_fetch(context):
+    response = requests.post(
+        f"{context.prop.wikipedia.url}/__admin/requests/find",
+        json={
+            "method": "GET",
+            "urlPath": "/w/api.php",
+            "queryParameters": {
+                "action": {"equalTo": "parse"},
+                "format": {"equalTo": "json"},
+                "prop": {"equalTo": "text"},
+                "page": {"equalTo": "Template:In_the_news"},
+                "section": {"equalTo": "0"},
+            },
+        },
     )
-    sync(context)
+    response.raise_for_status()
+    assert len(response.json()["requests"]) == 1, response.json()
 
 
 def sync(context):
@@ -94,6 +126,7 @@ def sync_headlines(context):
 def headlines_html(context):
     inner = "</li><li>".join(item.headline_html for item in context.topics.values())
     return f"<div><ul><li></li></ul></div>"
+
 
 
 def topics(context):
