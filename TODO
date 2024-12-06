@@ -33,9 +33,9 @@
       [x] trigger call to app
         [x] create payload
         [x] send
-      [i] expect calls to wikipedia
-        [i] headlines
-        [ ] articles in context
+      [x] expect calls to wikipedia
+        [x] headlines
+        [x] articles in context
       [ ] expect calls to tts
         [ ] combination of title and article fragments from context
       [ ] expect calls to spreaker

@@ -51,6 +51,35 @@ def headline_fetch(context):
     response.raise_for_status()
     assert len(response.json()["requests"]) == 1, response.json()
 
+@bhv.then("the episode list from Spreaker is retrieved")
+def episode_fetches(context):
+    response = requests.post(
+        f"{context.prop.spreaker.url}/__admin/requests/find",
+        json={
+            "method": "GET",
+            'urlPath': f"/v2/shows/{SHOW_ID}/episodes",
+            "queryParameters": {
+                "filter": {"equalTo": "editable"},
+                "sorting": {"equalTo": "oldest"},
+            },
+        },
+    )
+    response.raise_for_status()
+    reqs = response.json()["requests"]
+    assert len(reqs) == 1, response.json()
+    assert reqs[0]['headers']["Authorization"] == "Bearer DUMMY_TOKEN"
+
+@bhv.then("Wikipedia articles about {topic} are retrieved")
+def article_fetches(context, topic):
+    for title in context.topics[topic].articles:
+        response = requests.post(
+            f"{context.prop.wikipedia.url}/__admin/requests/find",
+            json={
+                "urlPath": f"/w/rest.php/v1/page/{title}",
+            },
+        )
+        response.raise_for_status()
+        assert len(response.json()["requests"]) == 1, (response.json(), title)
 
 def sync(context):
     sync_headlines(context)
@@ -90,7 +119,7 @@ def sync_articles(context):
                 'response': {
                     'status': 200,
                     'jsonBody': {
-                        'latest': article.id,
+                        'latest': {'id': article.id},
                         'source': article.markup
                     },
                 }
@@ -125,7 +154,7 @@ def sync_headlines(context):
 
 def headlines_html(context):
     inner = "</li><li>".join(item.headline_html for item in context.topics.values())
-    return f"<div><ul><li></li></ul></div>"
+    return f"<div><ul><li>{inner}</li></ul></div>"
 
 
 
@@ -167,4 +196,4 @@ class Article:
     def __init__(self, markup, plain):
         self.markup = markup
         self.plain = plain
-        self.id = random.randint(1, 2**30)
+        self.id = str(random.randint(1, 2**30))
