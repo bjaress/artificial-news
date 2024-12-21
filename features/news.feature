@@ -6,3 +6,4 @@ Feature: speaking the news
     Then headlines are retrieved from Wikipedia
     And the episode list from Spreaker is retrieved
     And Wikipedia articles about frogs are retrieved
+    And a script about frogs is sent for text-to-speech processing

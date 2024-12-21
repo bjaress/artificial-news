@@ -36,8 +36,8 @@
       [x] expect calls to wikipedia
         [x] headlines
         [x] articles in context
-      [ ] expect calls to tts
-        [ ] combination of title and article fragments from context
+      [x] expect calls to tts
+        [x] combination of title and article fragments from context
       [ ] expect calls to spreaker
         [ ] abridged version of title from context
         [ ] mock mp3 data from context
@@ -45,12 +45,7 @@
     [ ] expect success from app
   [ ] convert cleanup tests from cucumber to behave
   [ ] convert other integration tests from cucumber to behave
-  [ ] manual test
   [ ] merge branch in
-[ ] schedule release after run/upload
-  [ ] include unreleased when checking existing episodes
-  [ ] release next 5am Eastern after run
-  [ ] run noon HST
 [i] convert app to use html
   [x] find api call
     section list
@@ -75,6 +70,10 @@
     [ ] remove square-bracketed citations as well as parenthesized expressions
   [ ] merge branch in
 [ ] use studio voices
+[ ] schedule release after run/upload
+  [ ] include unreleased when checking existing episodes
+  [ ] release next 5am Eastern after run
+  [ ] run noon HST
 [ ] podcast on spotify
     [ ] spotify settings
     [ ] spreaker settings

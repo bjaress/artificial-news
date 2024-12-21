@@ -3,6 +3,7 @@ import behave as bhv
 import requests
 import time
 import random
+import json
 
 SHOW_ID = 1234
 BASE_64_MP3 = "Zm9v"
@@ -80,6 +81,26 @@ def article_fetches(context, topic):
         )
         response.raise_for_status()
         assert len(response.json()["requests"]) == 1, (response.json(), title)
+
+@bhv.then("a script about {topic} is sent for text-to-speech processing")
+def tts_processing(context, topic):
+    news = context.topics[topic]
+    possible = {"INTRO", "OUTRO", news.headline_plain}
+    possible.update({
+        p for article in news.articles.values() for p in article.plain.split("\n\n")
+    })
+    response = requests.post(
+        f"{context.prop.google.url}/__admin/requests/find",
+        json={ "method": "POST", "urlPath": "/v1/text:synthesize" }
+    )
+    response.raise_for_status()
+    payload = json.loads(response.json()["requests"][0]["body"])
+    actual = {p for p in payload["input"]["text"].split("\n\n")}
+    assert len(actual) > 0
+    assert 0 == len(actual.difference(possible)), (actual, possible)
+
+
+
 
 def sync(context):
     sync_headlines(context)
