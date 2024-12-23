@@ -38,7 +38,8 @@
         [x] articles in context
       [x] expect calls to tts
         [x] combination of title and article fragments from context
-      [ ] expect calls to spreaker
+      [i] expect audio upload to spreaker
+        [ ] parse multipart form data
         [ ] abridged version of title from context
         [ ] mock mp3 data from context
         [ ] show, other metadata
@@ -70,10 +71,10 @@
     [ ] remove square-bracketed citations as well as parenthesized expressions
   [ ] merge branch in
 [ ] use studio voices
-[ ] schedule release after run/upload
-  [ ] include unreleased when checking existing episodes
-  [ ] release next 5am Eastern after run
-  [ ] run noon HST
+[ ] randomize story selection
+  [ ] identify selected story in HTTP response
+  [ ] use selected story to drive assertions
+  [ ] weighted random selection of story (age in days is weight)
 [ ] podcast on spotify
     [ ] spotify settings
     [ ] spreaker settings

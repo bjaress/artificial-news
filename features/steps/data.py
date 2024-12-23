@@ -99,6 +99,21 @@ def tts_processing(context, topic):
     assert len(actual) > 0
     assert 0 == len(actual.difference(possible)), (actual, possible)
 
+@bhv.then("an episode about {topic} is uploaded to Spreaker")
+def spreaker_upload(context, topic):
+    response = requests.post(
+        f"{context.prop.spreaker.url}/__admin/requests/find",
+        json={
+            "method": "POST",
+            "urlPath": f"/v2/shows/{SHOW_ID}/episodes",
+        }
+    )
+    response.raise_for_status()
+    uploaded = response.json()["requests"][0]
+    headers = uploaded["headers"]
+
+    assert headers["Authorization"] == "Bearer DUMMY_TOKEN", headers
+    # TODO parse multipart data, check title, etc.
 
 
 

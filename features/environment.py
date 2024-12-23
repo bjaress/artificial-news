@@ -51,15 +51,18 @@ def poll(description, expected, action):
         try:
             result = action()
             if result == expected:
+                # Behave cleverly intercepts logging and then shows it if, and
+                # only if, there is a test failure.  We're using print() here to
+                # bypass that and give actual progress updates.
+                print(f"Attempt {attempt} at {description} succeeded.", flush=True)
                 return result
             message = result
         except Exception as e:
             exception = e
             message = exception
-        # Behave cleverly intercepts logging and then shows it if, and
-        # only if, there is a test failure.  We're using print() here to
-        # bypass that and give actual progress updates.
         print(f"Attempt {attempt} at {description} failed with {message}.", flush=True)
-        # exponential backoff, capped at around seven minutes.
+        # exponential backoff, capped at around seven minutes
         time.sleep(0.01 * (2 ** min(12, attempt)))
+        print(f"Trying again at {description}.", flush=True)
+
     raise (exception)

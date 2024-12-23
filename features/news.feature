@@ -7,3 +7,4 @@ Feature: speaking the news
     And the episode list from Spreaker is retrieved
     And Wikipedia articles about frogs are retrieved
     And a script about frogs is sent for text-to-speech processing
+    And an episode about frogs is uploaded to Spreaker
