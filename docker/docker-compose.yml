@@ -11,11 +11,6 @@ services:
       prop.google.url: http://google:8080
       prop.wikipedia.url: http://en.wikipedia.org:8080
       prop.TODAY: "2017-01-05"
-    depends_on:
-    - app
-    - spreaker
-    - google
-    - en.wikipedia.org
 
   app:
     build:
@@ -27,11 +22,13 @@ services:
 
   spreaker:
     image: docker.io/wiremock/wiremock
+    #entrypoint: ["/docker-entrypoint.sh", "--verbose"]
 
   google:
     image: docker.io/wiremock/wiremock
+    #entrypoint: ["/docker-entrypoint.sh", "--verbose"]
 
   en.wikipedia.org:
     image: docker.io/wiremock/wiremock
-    entrypoint: ["/docker-entrypoint.sh", "--verbose"]
+    #entrypoint: ["/docker-entrypoint.sh", "--verbose"]
 

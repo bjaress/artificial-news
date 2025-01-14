@@ -121,6 +121,7 @@ def sync(context):
     sync_headlines(context)
     sync_articles(context)
     sync_existing_episodes(context)
+    mp3(context)
 
 def sync_existing_episodes(context):
     items = [ { 'title': title

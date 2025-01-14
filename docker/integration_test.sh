@@ -1,5 +1,6 @@
 #! /bin/bash
 
+set -x
 outfile="$1"
 
 up() {
@@ -12,6 +13,7 @@ up() {
 
 down() {
   podman-compose -f docker/docker-compose.yml down --remove-orphans
+  podman-compose -f docker/docker-compose.yml wait
 }
 
 save_logs() {

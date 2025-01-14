@@ -8,6 +8,8 @@ RUN pip install -r requirements-integration.txt
 COPY features features/
 RUN find
 
+COPY docker/behave.ini ./
+
 USER www-data
 
-CMD ["behave"]
+ENTRYPOINT ["behave"]

@@ -1,4 +1,4 @@
-[i] scrape wikipedia using HTML, not wiki markup
+[i] switch to Behave
   - too many random, quirky templates
   [x] separate branch
     html-based-scraping
@@ -38,8 +38,12 @@
         [x] articles in context
       [x] expect calls to tts
         [x] combination of title and article fragments from context
+      [x] improve test framework
+        [x] move polling into background section
+        [x] logging during polling
+        [x] do not require container level dependencies
       [i] expect audio upload to spreaker
-        [ ] parse multipart form data
+        [i] parse multipart form data
         [ ] abridged version of title from context
         [ ] mock mp3 data from context
         [ ] show, other metadata
