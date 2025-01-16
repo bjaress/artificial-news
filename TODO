@@ -42,11 +42,11 @@
         [x] move polling into background section
         [x] logging during polling
         [x] do not require container level dependencies
-      [i] expect audio upload to spreaker
-        [i] parse multipart form data
-        [ ] abridged version of title from context
-        [ ] mock mp3 data from context
-        [ ] show, other metadata
+      [x] expect audio upload to spreaker
+        [x] parse multipart form data
+        [x] abridged version of title from context
+        [x] mock mp3 data from context
+        [x] show, other metadata
     [ ] expect success from app
   [ ] convert cleanup tests from cucumber to behave
   [ ] convert other integration tests from cucumber to behave

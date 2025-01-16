@@ -4,9 +4,10 @@ import requests
 import time
 import random
 import json
+import email
 
 SHOW_ID = 1234
-BASE_64_MP3 = "Zm9v"
+BASE_64_MP3 = "Zm9v" #foo
 
 
 @bhv.when("it is time to generate news")
@@ -109,11 +110,21 @@ def spreaker_upload(context, topic):
         }
     )
     response.raise_for_status()
-    uploaded = response.json()["requests"][0]
-    headers = uploaded["headers"]
+    captured = response.json()["requests"][0]
+    headers = captured["headers"]
 
     assert headers["Authorization"] == "Bearer DUMMY_TOKEN", headers
-    # TODO parse multipart data, check title, etc.
+
+    msg = email.message_from_string(
+        f"Content-Type: {headers["Content-Type"]}\n{captured["body"]}"
+        )
+    fields = {
+        part.get_param(
+            "name", header="Content-Disposition"): part.get_payload()
+            for part in msg.get_payload() }
+    assert fields["media_file"] == 'foo', msg # from BASE_64_MP3
+    assert "CC BY-SA 4.0" in fields["description"], msg
+    assert fields["title"] == context.topics[topic].headline_plain, (msg, context)
 
 
 
